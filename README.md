@@ -115,7 +115,7 @@ http http://gateway:8080/orders
 ##### Coupon 확인
 주방이 취소되면 취소된 쿠폰도 같이 취소된다
 
-![image](https://user-images.githubusercontent.com/25506725/105277019-f3272780-5be5-11eb-850c-5ddbc399deee.png)
+![image](https://user-images.githubusercontent.com/25506725/105278243-6336ad00-5be8-11eb-9814-9e467ee970dc.png)
 
 ##### MyOrder 조회 (CQRS), 현재상태 확인
 ```
