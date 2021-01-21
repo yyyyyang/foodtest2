@@ -156,12 +156,13 @@ application.yml에 Hystrix를 설정
 
 ![image](https://user-images.githubusercontent.com/25506725/105178182-0e088600-5b6b-11eb-8216-3339cd68bf27.png)
 
-주방:kitchen 서비스 의 임의 부하 처리 - 400 밀리에서 증감 220 밀리 정도 왔다갔다 하게 설정
-![image](https://user-images.githubusercontent.com/25506725/105178326-33958f80-5b6b-11eb-8187-4db58a4aaf1a.png)
+Coupon 서비스 의 임의 부하 처리 - 400 밀리에서 증감 220 밀리 정도 왔다갔다 하게 설정
+
+![image](https://user-images.githubusercontent.com/25506725/105279826-bc541000-5beb-11eb-8eb8-b5c98972694c.png)
 
 ### 실행결과
 
-![image](https://user-images.githubusercontent.com/62786155/105106062-b29db000-5af8-11eb-80ae-90583bd49e08.png)
+![image](https://user-images.githubusercontent.com/25506725/105279621-4b145d00-5beb-11eb-9e4a-05b77adbad6b.png)
 
 
 
