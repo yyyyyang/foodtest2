@@ -11,13 +11,14 @@
 3. 배송팀이 주문 확인 후 배송 처리한다.
 4. 주방팀(매니저)가 주문을 취소하면 주문 취소확인 후 배송 및 결제가 취소된다.
 5. 주방팀이 주문 취소를 하면 음식 Catalog 의 재고수량에 반영이 된다.
+6. 주문을 생성하고 결제 및 주방이 완료되면 쿠폰이 생성된다.
 
 비기능적 요구사항
 
 1. 트랜잭션
     1. 결제가 되지 않은 주문건은 아예 거래가 성립되지 않아야 한다.
 2. 장애격리
-    1. 주방시스템이 과중되면 사용자를 잠시동안 받지 않고 배송을 잠시후에 하도록 유도한다.  Circuit breaker, fallback
+    1. 결제시스템이 과중되면 사용자를 잠시동안 받지 않고 잠시후에 하도록 유도한다.  Circuit breaker, fallback
 3. 성능
     1. 고객은 자신이 주문한 내용과 배달상태를 나의 주문정보(프론트엔드)에서 확인할 수 있어야 한다.  CQRS
     2. 고객은 등록된 상품에 리뷰를 남길 수 있고 리뷰정보(프론트엔드)에서 확인할 수 있어야 한다. CQRS
@@ -93,6 +94,10 @@ http http://gateway:8080/orders
 ```
 ![image](https://user-images.githubusercontent.com/25506725/105154306-c541d480-5b4c-11eb-9f5a-6376a0888259.png)
 
+### Coupon 확인
+주방이 완료되면 쿠폰이 생성된다
+
+![image](https://user-images.githubusercontent.com/25506725/105276843-90359080-5be5-11eb-83e2-442c6b7a70fa.png)
 
 ### 주방(kithen) 취소
 ```
@@ -106,6 +111,11 @@ http http://gateway:8080/orders
 
 ##### kitchen 취소 시 foodcatalog 수량 확인
 ![image](https://user-images.githubusercontent.com/25506725/105172726-66d42080-5b63-11eb-828c-be733939465a.png)
+
+##### Coupon 확인
+주방이 취소되면 취소된 쿠폰도 같이 취소된다
+
+![image](https://user-images.githubusercontent.com/25506725/105277019-f3272780-5be5-11eb-850c-5ddbc399deee.png)
 
 ##### MyOrder 조회 (CQRS), 현재상태 확인
 ```
@@ -122,23 +132,22 @@ http http://gateway:8080/orders
 
 ####Kithen 서비스 장애 시 주문 불가
 
-```
-1. Kithen 서비스 중지
-	kubectl delete deploy Kithen
+## 장애격리
+
+주방 취소와 쿠폰 취소는 비동기 통신으로 쿠폰 취소 서비스가 죽은 상태에서도 정상 동작한다
+
+1. coupon 서비스 중지
+
+![image](https://user-images.githubusercontent.com/25506725/105277525-ec4ce480-5be6-11eb-9b64-9391dc62988c.png)
 	
-2. 주문 생성
-	# http POST http://gateway:8080/orders qty=10 foodcaltalogid=1 customerid=5
-```
-3. Kithen 서비스 장애 시 주문 불가
-
-![image](https://user-images.githubusercontent.com/25506725/105173107-e8c44980-5b63-11eb-9e4e-5f75fbd61f7b.png)
+![image](https://user-images.githubusercontent.com/25506725/105277585-071f5900-5be7-11eb-9f51-6fa876dc4d48.png)
 
 
-4. Kithen 서비스 재성후 정상 전송확인
-	
-![image](https://user-images.githubusercontent.com/25506725/105173285-24f7aa00-5b64-11eb-94b3-66d88a6256d9.png)
+2. coupon 서비스를 살리면 coupon취소 프로스세스가 진행된다.
 
+![image](https://user-images.githubusercontent.com/25506725/105278275-70ec3280-5be8-11eb-8aad-596b8ab805a5.png)
 
+![image](https://user-images.githubusercontent.com/25506725/105278243-6336ad00-5be8-11eb-9814-9e467ee970dc.png)
 
 ## Circuit Breaker 점검
 
