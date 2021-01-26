@@ -160,10 +160,6 @@ Coupon 서비스 의 임의 부하 처리 - 400 밀리에서 증감 220 밀리 �
 
 ![image](https://user-images.githubusercontent.com/25506725/105279826-bc541000-5beb-11eb-8eb8-b5c98972694c.png)
 
-### 실행결과
-
-![image](https://user-images.githubusercontent.com/25506725/105279621-4b145d00-5beb-11eb-9e4a-05b77adbad6b.png)
-
 
 
 ## Autoscale 점검
